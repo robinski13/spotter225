@@ -7,9 +7,9 @@ class Profile extends Component {
 	    super(props)
 
 	    this.state = {
-	      bench: 0,
-	      squat: 0,
-	      military_press: 0,
+	      bench: null,
+	      squat: null,
+	      military_press: null,
 	    }
   	}
 
@@ -30,9 +30,11 @@ class Profile extends Component {
 
   	saveInput = () => {
   		const { database, currentUser } = this.props
+  		const updateObject = {}
   		Object.keys(this.state).forEach((field) => {
-	  		database.ref(`users/${currentUser.uid}/details/${field}`).set(this.state[field])
+  			updateObject[`users/${currentUser.uid}/details/${field}`] = this.state[field]
   		})
+	  	database.ref().update(updateObject);
   	}
 
   	handleinputchange = (e) => {
@@ -49,27 +51,27 @@ class Profile extends Component {
 			<Input
 				id="bench"
 				onChange={this.handleinputchange}
-				placeholder="How much you got weak ass bitch"
+				placeholder="Enter how much you can Bench"
 				s={6}
-				label="Bench"
+				label=""
 				value={this.state.bench}
 				type="number"
 			/>
 			<Input
 				id="squat"
 				onChange={this.handleinputchange}
-				placeholder="How much you got weak ass bitch"
+				placeholder="Enter how much you can Squat"
 				s={6}
-				label="Squat"
+				label=""
 				value={this.state.squat}
 				type="number"
 			/>
 			<Input
 				id="military_press"
 				onChange={this.handleinputchange}
-				placeholder="How much you got weak ass bitch"
+				placeholder="Enter how much you can Military Press"
 				s={6}
-				label="Military Press"
+				label=""
 				value={this.state.military_press}
 				type="number"
 			/>

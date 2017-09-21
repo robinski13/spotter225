@@ -62,14 +62,22 @@ class App extends Component {
     auth.onAuthStateChanged((user) => {
       if (user) {
 
-        this.setState({ currentUser: this.mapUser(user) })
+        const mappedUser = this.mapUser(user)
+
+        this.setState({ currentUser: mappedUser })
 
         // add user to firebase db
         this.getUsersFromFirebase(database)
 
+        const userUpdates = {}
+
+        Object.keys(mappedUser.details).forEach((field) => {
+          userUpdates[`users/${mappedUser.uid}/details/${field}`] = mappedUser.details[field]
+        })
+
         database
-          .ref(`users/${user.uid}`)
-          .update(this.mapUser(user))
+          .ref()
+          .update(userUpdates)
           .catch((err) => console.log(err)) // eslint-disable-line no-console
       }
     });
