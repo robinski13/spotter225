@@ -13,19 +13,30 @@ class Profile extends Component {
 	    }
   	}
 
+  	componentWillMount() {
+  		const { database, currentUser } = this.props
+  		if (currentUser && currentUser.uid && database) {
+  			this.connectFirebase(this.props)
+  			this.firebaseConnected = true
+  		}
+  	}
+
   	componentWillReceiveProps(nextProps) {
-  		const { database, currentUser } = nextProps
-  		const { bench, squat, military_press } = this.state
-  		if (!bench && nextProps.database && nextProps.currentUser) {
-  			database.ref(`users/${currentUser.uid}/details`).on('value', (snapshot) => {
-  				const details = snapshot.val()
+  		if (!this.firebaseConnected && nextProps.database && nextProps.currentUser) {
+  			this.connectFirebase(nextProps)
+  		}
+  	}
+
+  	connectFirebase = (props) => {
+  		const { database, currentUser } = props
+  		database.ref(`users/${currentUser.uid}/details`).on('value', (snapshot) => {
+  			const details = snapshot.val()
   				this.setState({
   					bench: details.bench || 0,
   					squat: details.squat || 0,
   					military_press: details.military_press || 0,
   				})
   			})
-  		}
   	}
 
   	saveInput = () => {
@@ -53,7 +64,7 @@ class Profile extends Component {
 				onChange={this.handleinputchange}
 				placeholder="Enter how much you can Bench"
 				s={6}
-				label=""
+				label="Enter how much you can Bench"
 				value={this.state.bench}
 				type="number"
 			/>
@@ -62,7 +73,7 @@ class Profile extends Component {
 				onChange={this.handleinputchange}
 				placeholder="Enter how much you can Squat"
 				s={6}
-				label=""
+				label="Enter how much you can Squat"
 				value={this.state.squat}
 				type="number"
 			/>
@@ -71,7 +82,7 @@ class Profile extends Component {
 				onChange={this.handleinputchange}
 				placeholder="Enter how much you can Military Press"
 				s={6}
-				label=""
+				label="Enter how much you can Military Press"
 				value={this.state.military_press}
 				type="number"
 			/>
@@ -80,6 +91,11 @@ class Profile extends Component {
 		)
   	}
 
+}
+
+Profile.defaultProps = {
+	currentUser: {},
+	database: null,
 }
 
 export default Profile;
