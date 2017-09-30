@@ -21,6 +21,14 @@
     background-size: 235px 59px;
 }
 
-.home {
+
+.news-wrapper {
     color: red;
+    display: inline;
+   
+}
+
+.test{
+ float: right;
+ line-height: 400%;
 }

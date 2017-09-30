@@ -6,30 +6,26 @@ import './style.css'
 
 
 const Navbar = () =>
-    <
-    nav className = "header navbar" >
-    <
-    div className = "news-wrapper" >
-    <
-    ul id = "nav-mobile"
-className = "left hide-on-med-and-down" >
-    <
-    li className = "Home" >
-    <
-    Link to = "/" > Front Page < /Link> <
-    /li> <
-    li >
-    <
-    Link to = "/profile" > Profile < /Link> <
-    /li> <
-    li >
-    <
-    Link to = "/about" > About < /Link> <
-    /li> <
-    /ul>
+    <nav className = "header navbar">
+    <div className = "news-wrapper">
+        <div className="test">
+    <ul id = "nav-mobile"  >
+    <li>
+    <Link to = "/" > Home </Link> 
+ </li> 
+<li> 
+<Link to = "/profile"> Profile </Link> 
+</li> 
+<li>
+<Link to = "/about"> About </Link> 
+</li> 
+</ul>
+</div>
+ </div> 
+</nav>
 
-<
-/div> <
-/nav>
+// className = "left hide-on-med-and-down side"  nav mobile
+// className = "Home list"
+
 
 export default Navbar;
