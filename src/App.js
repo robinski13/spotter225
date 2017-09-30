@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Sidebar from './components/Sidebar'
 import Chat from './components/Chat'
 import Profile from './components/profile'
+import Navbar from './components/Navbar'
 
 class App extends Component {
   constructor(props) {
@@ -62,22 +63,14 @@ class App extends Component {
     auth.onAuthStateChanged((user) => {
       if (user) {
 
-        const mappedUser = this.mapUser(user)
-
-        this.setState({ currentUser: mappedUser })
+        this.setState({ currentUser: this.mapUser(user) })
 
         // add user to firebase db
         this.getUsersFromFirebase(database)
 
-        const userUpdates = {}
-
-        Object.keys(mappedUser.details).forEach((field) => {
-          userUpdates[`users/${mappedUser.uid}/details/${field}`] = mappedUser.details[field]
-        })
-
         database
-          .ref()
-          .update(userUpdates)
+          .ref(`users/${user.uid}`)
+          .update(this.mapUser(user))
           .catch((err) => console.log(err)) // eslint-disable-line no-console
       }
     });
@@ -194,6 +187,7 @@ class App extends Component {
       <Router>
         <div>
           <div className="App">
+            <Navbar/>
             <div className="App-header">
               {this.renderLogin()}
               <h2>Welcome to Chatterbox</h2>

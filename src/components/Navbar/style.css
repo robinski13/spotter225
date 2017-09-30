@@ -1,0 +1,26 @@
+.header {
+    background-color: #ffffff;
+    font-family: Arial;
+    font-size: 18px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    line-height: 2;
+    height: 75px;
+    color: #777;
+    border-bottom-style: solid;
+    border-bottom-color: #cccccc;
+    border-bottom-width: 2px;
+}
+
+.navbar {
+    background-color: orange;
+    background-image: url("spotterlogo.png");
+    background-repeat: no-repeat;
+    background-position: 1%;
+    background-size: 235px 59px;
+}
+
+.home {
+    color: red;
+}

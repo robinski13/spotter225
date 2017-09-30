@@ -2,50 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Row, Input, Button} from 'react-materialize';
 
+import './style.css'
+
 class Profile extends Component {
 	constructor(props) {
 	    super(props)
 
 	    this.state = {
-	      bench: null,
-	      squat: null,
-	      military_press: null,
+	      bench: 0,
+	      squat: 0,
+	      military_press: 0,
 	    }
   	}
 
-  	componentWillMount() {
-  		const { database, currentUser } = this.props
-  		if (currentUser && currentUser.uid && database) {
-  			this.connectFirebase(this.props)
-  			this.firebaseConnected = true
-  		}
-  	}
-
   	componentWillReceiveProps(nextProps) {
-  		if (!this.firebaseConnected && nextProps.database && nextProps.currentUser) {
-  			this.connectFirebase(nextProps)
-  		}
-  	}
-
-  	connectFirebase = (props) => {
-  		const { database, currentUser } = props
-  		database.ref(`users/${currentUser.uid}/details`).on('value', (snapshot) => {
-  			const details = snapshot.val()
+  		const { database, currentUser } = nextProps
+  		const { bench, squat, military_press } = this.state
+  		if (!bench && nextProps.database && nextProps.currentUser) {
+  			database.ref(`users/${currentUser.uid}/details`).on('value', (snapshot) => {
+  				const details = snapshot.val()
   				this.setState({
   					bench: details.bench || 0,
   					squat: details.squat || 0,
   					military_press: details.military_press || 0,
   				})
   			})
+  		}
   	}
 
   	saveInput = () => {
   		const { database, currentUser } = this.props
-  		const updateObject = {}
   		Object.keys(this.state).forEach((field) => {
-  			updateObject[`users/${currentUser.uid}/details/${field}`] = this.state[field]
+	  		database.ref(`users/${currentUser.uid}/details/${field}`).set(this.state[field])
   		})
-	  	database.ref().update(updateObject);
   	}
 
   	handleinputchange = (e) => {
@@ -62,27 +51,27 @@ class Profile extends Component {
 			<Input
 				id="bench"
 				onChange={this.handleinputchange}
-				placeholder="Enter how much you can Bench"
+				placeholder="How much you got weak ass bitch"
 				s={6}
-				label="Enter how much you can Bench"
+				label="Bench"
 				value={this.state.bench}
 				type="number"
 			/>
 			<Input
 				id="squat"
 				onChange={this.handleinputchange}
-				placeholder="Enter how much you can Squat"
+				placeholder="How much you got weak ass bitch"
 				s={6}
-				label="Enter how much you can Squat"
+				label="Squat"
 				value={this.state.squat}
 				type="number"
 			/>
 			<Input
 				id="military_press"
 				onChange={this.handleinputchange}
-				placeholder="Enter how much you can Military Press"
+				placeholder="How much you got weak ass bitch"
 				s={6}
-				label="Enter how much you can Military Press"
+				label="Military Press"
 				value={this.state.military_press}
 				type="number"
 			/>
@@ -91,11 +80,6 @@ class Profile extends Component {
 		)
   	}
 
-}
-
-Profile.defaultProps = {
-	currentUser: {},
-	database: null,
 }
 
 export default Profile;
