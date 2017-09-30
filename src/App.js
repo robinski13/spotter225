@@ -109,7 +109,7 @@ class App extends Component {
       const message = error.message;
       const email = error.email;
       const credential = error.credential;
-      this.setState({ error: { code, message, email, credential } })
+      //this.setState({ error: { code, message, email, credential } })
     });
   }
 
