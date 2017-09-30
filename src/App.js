@@ -190,9 +190,8 @@ class App extends Component {
             <Navbar/>
             <div className="App-header">
               {this.renderLogin()}
-              <h2>Welcome to Chatterbox</h2>
+              
               {this.renderUser()} 
-              <Link to="/profile"> Profile Page </Link>
             </div>
           </div>
           <Route exact path="/" component={ChatWrapper} />
