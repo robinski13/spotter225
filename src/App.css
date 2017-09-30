@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+    /* background-color: black;   */
 }
 
 .App-logo {
@@ -7,8 +8,14 @@
   height: 80px;
 }
 
-.App-header {
-  background-color: #222;
+.App-header {  
+      /* background-image: url("Arnold.jpg");   */
+       /* opacity: 0.5;  */
+      /* background-image: url("squat.jpg"); */
+      background-image: url("spot.jpg");
+     background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
   padding: 20px;
   color: white;
 }

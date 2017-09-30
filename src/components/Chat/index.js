@@ -165,7 +165,9 @@ const avatarStyle = {
 const messagesStyle = {
   maxHeight: 500,
   overflowY: 'auto',
+  
   padding: '0 0 20px 0'
+  
 }
 
 const messageStyle = {
@@ -173,6 +175,7 @@ const messageStyle = {
   display: 'flex',
   boxShadow: '0 1px 4px #ccc',
   padding: '2px 10px',
+  
   margin: 5,
 }
 
